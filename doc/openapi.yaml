@@ -1,0 +1,68 @@
+openapi: "3.0.0"
+info:
+  version: "1.0.0"
+  title: "DRAKE-GUI-DART"
+servers:
+  - url: "https://myserver.com"
+paths:
+  /create_task:
+    post:
+      summary: "Create a new task"
+      operationId: "createTask"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskCreate"
+      responses:
+        '200':
+          description: "Task successfully created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskResponse"
+  /update_task:
+    put:
+      summary: "Modify an existing task"
+      operationId: "modifyTask"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TaskUpdate"
+      responses:
+        '200':
+          description: "Task successfully modified"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskResponse"
+components:
+  schemas:
+    TaskCreate:
+      type: "object"
+      properties:
+        title:
+          type: "string"
+        priority:
+          type: "integer"
+        tags:
+          type: "array"
+          items:
+            type: "string"
+    TaskUpdate:
+      type: "object"
+      properties:
+        task_id:
+          type: "string"
+        new_status:
+          type: "string"
+    TaskResponse:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+        task_id:
+          type: "string"
